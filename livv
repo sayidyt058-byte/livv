@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Livv ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Floating hearts background */
+    .heart-bg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4d6d;
+        transform: rotate(45deg);
+        animation: float 8s linear infinite;
+        opacity: 0.6;
+    }
+
+    .heart-bg::before,
+    .heart-bg::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4d6d;
+        border-radius: 50%;
+    }
+
+    .heart-bg::before {
+        top: -10px;
+        left: 0;
+    }
+
+    .heart-bg::after {
+        left: -10px;
+        top: 0;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(100vh) rotate(45deg);
+            opacity: 0;
+        }
+        10% { opacity: 0.6; }
+        100% {
+            transform: translateY(-10vh) rotate(45deg);
+            opacity: 0;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    /* Countdown message */
+    .message {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 34px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-top: -90px;
+        margin-bottom: 45px;
+        min-height: 45px;
+    }
+
+    /* Heart button */
+    .heart-button {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        background: #ff4d6d;
+        border: none;
+        cursor: pointer;
+        transform: rotate(45deg);
+        animation: pulse 1.5s infinite;
+        transition: transform 0.3s ease;
+    }
+
+    .heart-button::before,
+    .heart-button::after {
+        content: "";
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: #ff4d6d;
+        border-radius: 50%;
+    }
+
+    .heart-button::before {
+        top: -40px;
+        left: 0;
+    }
+
+    .heart-button::after {
+        left: -40px;
+        top: 0;
+    }
+
+    @keyframes pulse {
+        0% { transform: rotate(45deg) scale(1); }
+        50% { transform: rotate(45deg) scale(1.08); }
+        100% { transform: rotate(45deg) scale(1); }
+    }
+
+    /* Envelope */
+    .envelope {
+        display: none;
+        position: relative;
+        width: 320px;
+        height: 200px;
+        background: #ffffff;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .envelope::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #f1f1f1;
+        clip-path: polygon(0 0, 50% 50%, 100% 0);
+        transform-origin: top;
+        animation: openFlap 1s forwards;
+    }
+
+    @keyframes openFlap {
+        to { transform: rotateX(180deg); }
+    }
+
+    .letter {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 32px;
+        font-weight: bold;
+        color: #ff4d6d;
+        opacity: 0;
+        animation: showLetter 1s forwards 0.8s;
+    }
+
+    @keyframes showLetter {
+        to { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+
+<script>
+    // Generate floating hearts
+    for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart-bg";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+        heart.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(heart);
+    }
+</script>
+
+<div class="container">
+    <div class="message" id="message">
+        Click the heart 💖
+    </div>
+
+    <button class="heart-button" id="heart"></button>
+
+    <div class="envelope" id="envelope">
+        <div class="letter">I love you Livv ❤️</div>
+    </div>
+</div>
+
+<script>
+    let clicks = 0;
+    const maxClicks = 13;
+
+    const messages = [
+        "Click below 💖",
+        "Keep going 😌",
+        "You’re doing great 💕",
+        "Good Girl 👀",
+        "You’re almost there 💓",
+        "Kleine djalla van mij 😘",
+        "This is worth it 💗",
+        "So close now (im cumming) 💞",
+        "Gerro?😍",
+        "Just a few more 💖",
+        "Almost almost 💘",
+        "One last push 💝",
+        "I love you — ps your boyfriend ❤️"
+    ];
+
+    const heart = document.getElementById("heart");
+    const message = document.getElementById("message");
+    const envelope = document.getElementById("envelope");
+
+    heart.addEventListener("click", () => {
+        clicks++;
+
+        const scale = 1 + clicks * 0.12;
+        heart.style.transform = `rotate(45deg) scale(${scale})`;
+
+        message.textContent = messages[Math.min(clicks, messages.length - 1)];
+
+        if (clicks >= maxClicks) {
+            heart.style.display = "none";
+            message.style.display = "none";
+            envelope.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>
